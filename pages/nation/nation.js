@@ -11,13 +11,13 @@ Page({
   data: {
     // 判断用户是否授权
     authorized: false,
-    avatar: '',
-    // avatar: "http://7d9oi4.com1.z0.glb.clouddn.com/avatar.png",
+    avatar: "https://linlishe-1259653897.cos.ap-guangzhou.myqcloud.com/avatar.png",
     // 当前的icon图标
     currentIcon: '',
     // 当前的位置
     currentPositon: 3,
-    iconList: []
+    iconList: [],
+    photo: true
   },
 
   /**
@@ -66,7 +66,11 @@ Page({
       }
     })
   },
-
+  onSuccessOpenSetting() {
+    this.setData({
+      photo: true
+    })
+  },
 
   onGetUserInfo() {
     this.userAuthorized()
@@ -122,10 +126,6 @@ Page({
   },
 
   chooseIcon(event) {
-    if (!this.data.authorized) {
-      return wx.showToast({ title: '请点击获取微信头像', icon: 'none' })
-      return false
-    }
     let icon = event.currentTarget.dataset.image
     console.log({ icon })
     this.setData({
@@ -136,10 +136,6 @@ Page({
 
   choosePosition(event) {
     let that = this
-    if (!that.data.authorized) {
-      return wx.showToast({ title: '请点击获取微信头像', icon: 'none' })
-      return false
-    }
     if (!that.data.currentIcon) {
       wx.showToast({ title: '请先选择图标', icon: 'none' })
       return false
@@ -150,10 +146,6 @@ Page({
 
   saveImage() {
     let that = this
-    if (!that.data.authorized) {
-      return wx.showToast({ title: '请点击获取微信头像', icon: 'none' })
-      return false
-    }
     let currentIcon = that.data.currentIcon
     if (!currentIcon) {
       wx.showToast({ title: '请先选择图标', icon: 'none' })
@@ -161,13 +153,21 @@ Page({
     }
 
     wx.showLoading({ title: '正在制作...' })
-
     that.canvasDrawImage((image) => {
-      wx.promisify('saveImageToPhotosAlbum')({
-        filePath: image
-      }).then(() => {
-        wx.showToast({ title: '保存成功' })
+      wx.promisify('getSetting')().then(setRes => {
+        if (setRes.authSetting['scope.writePhotosAlbum'] !== false) {
+          wx.promisify('saveImageToPhotosAlbum')({
+            filePath: image
+          }).then(() => {
+            wx.showToast({ title: '保存成功' })
+          }).catch(e => {
+            that.setData({
+              photo: false
+            })
+          })
+        }
       })
+
     })
 
     setTimeout(() => {

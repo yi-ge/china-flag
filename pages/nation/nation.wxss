@@ -110,9 +110,6 @@ page{
   margin-top: 20rpx;
 }
 
-.save-button{
-  background-color: #f90;
-}
 
 
 .canvasBox {
