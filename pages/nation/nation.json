@@ -1,0 +1,7 @@
+{
+  "disableScroll": true,
+  "usingComponents": {
+    "f-button": "/components/image-button/index"
+  },
+  "navigationStyle": "custom"
+}
