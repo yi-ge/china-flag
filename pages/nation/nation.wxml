@@ -4,7 +4,7 @@
     <image src="{{currentIcon}}" class="current-icon current-icon-{{currentPositon}} icon-image" />
   </view>
   <f-button wx:else bindgetuserinfo="onGetUserInfo" class="avatar-container-click" open-type="getUserInfo">
-    <image src="/images/click.png" slot="img" class="avatar"/>
+    <image src="/images/clickkk.png" slot="img" class="avatar"/>
   </f-button>
   <view class="icon-list">
     <image src="{{item}}" wx:for="{{iconList}}" wx:key="index" class="icon-image" bind:tap="chooseIcon" data-image="{{item}}" />
@@ -16,7 +16,7 @@
     <view bind:tap="choosePosition" data-position="3" class="position-button">右下方</view>
   </view>
   <button open-type="share" type="primary" class="s-button">分享好友</button>
-  <button bind:tap="saveImage" type="warn" class="s-button">保存图片</button>
+  <button bind:tap="saveImage" class="s-button" type="warn">保存图片</button>
   <!-- <canvas canvas-id="my-canvas" class="my-canvas" /> -->
   <!-- 隐藏区域 -->
   <view class='canvasBox'>

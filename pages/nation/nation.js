@@ -129,7 +129,8 @@ Page({
     let icon = event.currentTarget.dataset.image
     console.log({ icon })
     this.setData({
-      currentIcon: icon
+      currentIcon: icon,
+      currentPositon: 3
     })
   },
 
@@ -149,7 +150,10 @@ Page({
 
   saveImage() {
     let that = this
-
+    if (!that.data.authorized) {
+      return wx.showToast({ title: '请点击获取微信头像', icon: 'none' })
+      return false
+    }
     let currentIcon = that.data.currentIcon
     if (!currentIcon) {
       wx.showToast({ title: '请先选择图标', icon: 'none' })
