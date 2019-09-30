@@ -12,13 +12,32 @@
     <view bind:tap="choosePosition" data-position="2" class="position-button">左下方</view>
     <view bind:tap="choosePosition" data-position="3" class="position-button">右下方</view>
   </view>
-  <button open-type="getUserInfo" type="success" class="s-button" bindgetuserinfo="onGetUserInfo">
-    使用微信头像
-  </button>
-  <button open-type="share" type="primary" class="s-button">分享好友</button>
-  <button bind:tap="saveImage" open-type="{{photo?'':'openSetting'}}" bindopensetting="onSuccessOpenSetting" class="s-button" type="warn">
-    保存图片
-  </button>
+  <view class="ad">
+    <ad unit-id="adunit-ef34269cb8c55fdb"></ad>
+  </view>
+  <view class="button-container">
+    <view class="button-container-line">
+      <button open-type="getUserInfo" type="primary" bindgetuserinfo="onGetUserInfo" class="new-button" wx:if="{{!authorized}}">
+        获取微信头像
+      </button>
+      <button open-type="share" type="primary" class="new-button" type="primary" wx:else="{{authorized}}">
+        分享好友
+      </button>
+    </view>
+    <view class="button-container-line">
+      <button bind:tap="saveImage" open-type="{{photo?'':'openSetting'}}" bindopensetting="onSuccessOpenSetting" class="new-button" type="warn">
+        保存图片
+      </button>
+    </view>
+  </view>
+  <view class="custom-modal-container" wx:if="{{customModal}}">
+    <image src="/images/my-china.png" class="custom-modal-image"></image>
+    <view class="custom-button-container">
+      <button class="custom-button" bind:tap="customModalCancel" data-status="0">下次再说</button>
+      <button class="custom-button concat-customer" open-type="share">推荐给好友</button>
+    </view>
+  </view>
+  <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{customModal}}"></view>
   <!-- <canvas canvas-id="my-canvas" class="my-canvas" /> -->
   <!-- 隐藏区域 -->
   <view class='canvasBox'>

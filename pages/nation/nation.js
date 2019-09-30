@@ -17,7 +17,8 @@ Page({
     // 当前的位置
     currentPositon: 3,
     iconList: [],
-    photo: true
+    photo: true,
+    customModal: false
   },
 
   /**
@@ -39,6 +40,20 @@ Page({
   },
 
   /**
+   * 选择本地文件
+   */
+  // uploadLocalImage() {
+  //   let that = this
+  //   wx.promisify('chooseImage')({
+  //     count: 1
+  //   }).then(chooseRes => {
+  //     console.log({ chooseRes })
+  //     that.setData({
+  //       avatar: chooseRes.tempFilePaths[0]
+  //     })
+  //   })
+  // },
+  /**
    * 用户是否已经授权
    */
   userAuthorized() {
@@ -52,7 +67,6 @@ Page({
           stringArray.pop()
           stringArray.push('0')
           avatar = stringArray.join('/');
-          console.log({ avatar })
           that.setData({
             avatar: avatar,
             authorized: true
@@ -70,6 +84,10 @@ Page({
     this.setData({
       photo: true
     })
+  },
+
+  customModalCancel() {
+    this.setData({ customModal: false })
   },
 
   onGetUserInfo() {
@@ -122,7 +140,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    console.log('share')
+    this.setData({
+      customModal: false
+    })
   },
 
   chooseIcon(event) {
@@ -151,7 +172,6 @@ Page({
       wx.showToast({ title: '请先选择图标', icon: 'none' })
       return false
     }
-
     wx.showLoading({ title: '正在制作...' })
     that.canvasDrawImage((image) => {
       wx.promisify('getSetting')().then(setRes => {
@@ -160,6 +180,9 @@ Page({
             filePath: image
           }).then(() => {
             wx.showToast({ title: '保存成功' })
+            that.setData({
+              customModal: true
+            })
           }).catch(e => {
             that.setData({
               photo: false
@@ -206,9 +229,9 @@ Page({
     ctx.setFillStyle('#ffffff')
     ctx.fillRect(0, 0, 300 * multiple, 300 * multiple)
     ctx.save() //保存之前状态，便于画完圆继续使用
-    roundedRect(ctx, 10 * multiple, 10 * multiple, 280 * multiple, 280 * multiple, 30 * multiple)
+    roundedRect(ctx, 0 * multiple, 0 * multiple, 300 * multiple, 300 * multiple, 30 * multiple)
     ctx.clip()
-    ctx.drawImage(tempAvatar, 10 * multiple, 10 * multiple, 280 * multiple, 280 * multiple)
+    ctx.drawImage(tempAvatar, 0 * multiple, 0 * multiple, 300 * multiple, 300 * multiple)
     ctx.restore()
     // 一下300就是300rpx
     let iconSize = 110
