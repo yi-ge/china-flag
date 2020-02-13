@@ -11,7 +11,7 @@ Page({
   data: {
     // 判断用户是否授权
     authorized: false,
-    avatar: "https://linlishe-1259653897.cos.ap-guangzhou.myqcloud.com/avatar.png",
+    avatar: "https://app.ykfz.pw/avator.png",
     // 当前的icon图标
     currentIcon: '',
     // 当前的位置
@@ -31,10 +31,15 @@ Page({
 
   getIconList() {
     let that = this
-    wx.promisify('request')({ url: 'https://linlishe-1259653897.cos.ap-guangzhou.myqcloud.com/icon.json' }).then(res => {
+    wx.promisify('request')({ url: 'https://app.ykfz.pw/icons2.json' }).then(res => {
       console.log("iconList", res.data)
       that.setData({
         iconList: res.data
+      })
+
+      this.setData({
+        currentIcon: res.data[0],
+        currentPositon: 3
       })
     })
   },
@@ -199,6 +204,12 @@ Page({
     console.log('开始画图')
   },
 
+  //事件处理函数
+  bindViewTap: function() {
+    wx.navigateTo({
+      url: '../weixinlink/weixinlink'
+    })
+  },
 
   canvasDrawImage(callback) {
     let that = this

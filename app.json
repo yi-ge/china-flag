@@ -2,12 +2,13 @@
   "pages": [
     "pages/nation/nation",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/weixinlink/weixinlink"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "抗疫头像生成",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

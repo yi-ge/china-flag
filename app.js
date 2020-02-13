@@ -10,6 +10,7 @@ App({
                 resolve(res)
               },
               fail(err) {
+                console.log(err)
                 wx.showToast({
                   title: options.errorTip || '系统异常',
                   icon: 'none',
