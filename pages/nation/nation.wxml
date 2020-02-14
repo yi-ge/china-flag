@@ -32,12 +32,12 @@
 
     <view class="button-container-line">
       <button bind:tap="bindViewTap" class="new-button"  style="background-color: #ff9900">
-        疫情防控常见法律问题
+        律品疫情防控常见法律问题
       </button>
     </view>
   </view>
   <view class="custom-modal-container" wx:if="{{customModal}}">
-    <image src="/images/share.png" class="custom-modal-image"></image>
+    <image src="/images/share2.png" class="custom-modal-image"></image>
     <view class="custom-button-container">
       <button class="custom-button" bind:tap="customModalCancel" data-status="0">下次再说</button>
       <button class="custom-button concat-customer" open-type="share">推荐给好友</button>
